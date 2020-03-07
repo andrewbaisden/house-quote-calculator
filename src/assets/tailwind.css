@@ -3,3 +3,15 @@
 @tailwind components;
 
 @tailwind utilities;
+
+@import url('https://fonts.googleapis.com/css?family=Inter:400,700&display=swap');
+
+body {
+    background: url("./img/bg.jpg") no-repeat;
+    font-family: 'Inter', sans-serif;
+
+}
+
+.hover {
+    background: red;
+}
