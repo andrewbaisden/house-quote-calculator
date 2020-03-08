@@ -80,7 +80,6 @@ function App() {
 		setInvestment(value);
 	};
 
-
 	const purchaseComponent = useRef();
 	const sellComponent = useRef();
 	const purchaseAndSellComponent = useRef();
@@ -89,6 +88,7 @@ function App() {
 	const generalComponent = useRef();
 	const calcQuoteComponent = useRef();
 	const newQuoteComponent = useRef();
+	const formError = useRef();
 
 	const btnMenu = buttonClass => {
 		const btnMenu = Array.from(document.querySelectorAll(buttonClass));
@@ -139,16 +139,24 @@ function App() {
 		purchaseAndSellComponent.current.classList.add('hide');
 	};
 	const calcQuote = () => {
-		generalComponent.current.classList.add('hide');
-		purchaseComponent.current.classList.add('hide');
-		sellComponent.current.classList.add('hide');
-		purchaseAndSellComponent.current.classList.add('hide');
-		remortgageComponent.current.classList.add('hide');
-		yourQuoteComponent.current.classList.remove('hide');
-		yourQuoteComponent.current.classList.add('show');
-		calcQuoteComponent.current.classList.add('hide');
-		newQuoteComponent.current.classList.remove('hide');
-		newQuoteComponent.current.classList.add('show');
+
+		if(people === "" || propertyWorth === "" || propertyType === "" || mortgage === "" || gifted === "" || gifting === "" || buyer === "" || investment === ""){
+			console.log("Please complete the form so that you can get your quote.");
+			submitWarning();
+		} else {
+			generalComponent.current.classList.add('hide');
+			purchaseComponent.current.classList.add('hide');
+			sellComponent.current.classList.add('hide');
+			purchaseAndSellComponent.current.classList.add('hide');
+			remortgageComponent.current.classList.add('hide');
+			yourQuoteComponent.current.classList.remove('hide');
+			yourQuoteComponent.current.classList.add('show');
+			calcQuoteComponent.current.classList.add('hide');
+			newQuoteComponent.current.classList.remove('hide');
+			newQuoteComponent.current.classList.add('show');
+		}
+
+	
 	};
 	const newQuote = () => {
 		generalComponent.current.classList.remove('hide');
@@ -161,6 +169,7 @@ function App() {
 		newQuoteComponent.current.classList.add('hide');
 
 		resetState();
+		window.location.reload();
 	};
 
 	const resetState = () => {
@@ -172,6 +181,15 @@ function App() {
 		setGifting("")
 		setBuyer("")
 		setInvestment("")
+	}
+	const submitWarning = () => {
+		formError.current.classList.remove("hide");
+		formError.current.classList.add("show");
+
+		setTimeout(() => {
+			formError.current.classList.add("hide");
+			formError.current.classList.remove("show");
+		}, 3000)
 	}
 
 	return (
@@ -278,6 +296,9 @@ function App() {
 				</div>
 
 				<div>
+					<div className="bg-red-600 text-white p-4 text-center mb-4 hide" ref={formError}>
+						<p>Please complete the form so that you can get your quote.</p>
+					</div>
 					<div ref={calcQuoteComponent}>
 						<button
 							className="transition duration-500 ease-in-out bg-teal-600 hover:bg-teal-700 text-white text-center w-8 p-2 rounded shadow-md mr-4 w-auto uppercase"
