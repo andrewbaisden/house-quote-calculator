@@ -12,6 +12,10 @@ body {
 
 }
 
-.hover {
-    background: red;
+.show {
+    display: block;
+}
+
+.hide {
+    display: none;
 }

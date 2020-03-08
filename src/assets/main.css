@@ -10919,8 +10919,12 @@ body {
   font-family: 'Inter', sans-serif;
 }
 
-.hover {
-  background: red;
+.show {
+  display: block;
+}
+
+.hide {
+  display: none;
 }
 
 @media (min-width: 640px) {

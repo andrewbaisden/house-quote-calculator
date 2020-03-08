@@ -1,4 +1,8 @@
-import React, { Fragment, useEffect } from 'react';
+import React, { Fragment, useEffect, useRef } from 'react';
+import Purchase from './components/Purchase';
+import Sale from './components/Sale';
+import PurchaseAndSell from './components/PurchaseAndSell';
+import Remortgage from './components/Remortgage';
 
 function App() {
 	useEffect(() => {
@@ -24,6 +28,12 @@ function App() {
 		btnMenu('.btn-menu-remortgage-shared-ownership');
 		btnMenu('.btn-menu-remortgage-country');
 	}, []);
+
+	const purchaseComponent = useRef();
+	const sellComponent = useRef();
+	const purchaseAndSellComponent = useRef();
+	const remortgageComponent = useRef();
+
 	const btnMenu = buttonClass => {
 		const btnMenu = Array.from(document.querySelectorAll(buttonClass));
 		console.log(btnMenu);
@@ -41,6 +51,34 @@ function App() {
 			});
 			forHover.classList.add('bg-teal-700');
 		}
+	};
+	const purchase = () => {
+		purchaseComponent.current.classList.remove('hide');
+		purchaseComponent.current.classList.add('show');
+		sellComponent.current.classList.add('hide');
+		purchaseAndSellComponent.current.classList.add('hide');
+		remortgageComponent.current.classList.add('hide');
+	};
+	const sell = () => {
+		sellComponent.current.classList.remove('hide');
+		sellComponent.current.classList.add('show');
+		purchaseComponent.current.classList.add('hide');
+		purchaseAndSellComponent.current.classList.add('hide');
+		remortgageComponent.current.classList.add('hide');
+	};
+	const purchaseAndSell = () => {
+		purchaseAndSellComponent.current.classList.remove('hide');
+		purchaseAndSellComponent.current.classList.add('show');
+		purchaseComponent.current.classList.add('hide');
+		sellComponent.current.classList.add('hide');
+		remortgageComponent.current.classList.add('hide');
+	};
+	const remortgage = () => {
+		remortgageComponent.current.classList.remove('hide');
+		remortgageComponent.current.classList.add('show');
+		purchaseComponent.current.classList.add('hide');
+		sellComponent.current.classList.add('hide');
+		purchaseAndSellComponent.current.classList.add('hide');
 	};
 	return (
 		<Fragment>
@@ -72,187 +110,45 @@ function App() {
 						</div>
 					</div>
 					<div>
-						<button className="btn-menu-purchase-type transition duration-500 ease-in-out bg-teal-600 hover:bg-teal-700 text-white text-center w-8 p-2 rounded shadow-md mr-4 w-auto uppercase mb-4">
+						<button
+							className="btn-menu-purchase-type transition duration-500 ease-in-out bg-teal-600 hover:bg-teal-700 text-white text-center w-8 p-2 rounded shadow-md mr-4 w-auto uppercase mb-4"
+							onClick={purchase}
+						>
 							Purchase
 						</button>
-						<button className="btn-menu-purchase-type transition duration-500 ease-in-out bg-teal-600 hover:bg-teal-700 text-white text-center w-8 p-2 rounded shadow-md mr-4 w-auto uppercase mb-4">
+						<button
+							className="btn-menu-purchase-type transition duration-500 ease-in-out bg-teal-600 hover:bg-teal-700 text-white text-center w-8 p-2 rounded shadow-md mr-4 w-auto uppercase mb-4"
+							onClick={sell}
+						>
 							Sell
 						</button>
-						<button className="btn-menu-purchase-type transition duration-500 ease-in-out bg-teal-600 hover:bg-teal-700 text-white text-center w-8 p-2 rounded shadow-md mr-4 w-auto uppercase mb-4">
+						<button
+							className="btn-menu-purchase-type transition duration-500 ease-in-out bg-teal-600 hover:bg-teal-700 text-white text-center w-8 p-2 rounded shadow-md mr-4 w-auto uppercase mb-4"
+							onClick={purchaseAndSell}
+						>
 							Purchase and Sell
 						</button>
-						<button className="btn-menu-purchase-type transition duration-500 ease-in-out bg-teal-600 hover:bg-teal-700 text-white text-center w-8 p-2 rounded shadow-md mr-4 w-auto uppercase mb-4">
-							Remortage
+						<button
+							className="btn-menu-purchase-type transition duration-500 ease-in-out bg-teal-600 hover:bg-teal-700 text-white text-center w-8 p-2 rounded shadow-md mr-4 w-auto uppercase mb-4"
+							onClick={remortgage}
+						>
+							Remortgage
 						</button>
 					</div>
 				</div>
-				<div className="rounded bg-white p-8 shadow-xl">
-					<h1 className="mb-4 text-4xl">Your Purchase</h1>
-					<div className="mb-4">
-						<p>The property is worth £</p>
-						<input type="text" name="property" className="w-full border-b-2 mt-4" />
-					</div>
-					<div>
-						<span className="mr-4">The property is a</span>
-						<button className="btn-menu-purchase-property transition duration-500 ease-in-out bg-teal-600 hover:bg-teal-700 text-white text-center w-8 p-2 rounded shadow-md mr-4 w-auto uppercase mb-4">
-							Freehold
-						</button>
-						<button className="btn-menu-purchase-property transition duration-500 ease-in-out bg-teal-600 hover:bg-teal-700 text-white text-center w-8 p-2 rounded shadow-md mr-4 w-auto uppercase mb-4">
-							Leasehold
-						</button>
-						<span className="ml-4">.</span>
-					</div>
-					<div>
-						<span className="mr-4">There</span>
-						<button className="btn-menu-purchase-mortgage transition duration-500 ease-in-out bg-teal-600 hover:bg-teal-700 text-white text-center w-8 p-2 rounded shadow-md mr-4 w-auto uppercase mb-4">
-							Will
-						</button>
-						<button className="btn-menu-purchase-mortgage transition duration-500 ease-in-out bg-teal-600 hover:bg-teal-700 text-white text-center w-8 p-2 rounded shadow-md mr-4 w-auto uppercase mb-4">
-							Wll Not
-						</button>
-						<span className="ml-4">be a mortgage on this property.</span>
-					</div>
-					<div>
-						<span className="mr-4">There</span>
-						<button className="btn-menu-purchase-gifted transition duration-500 ease-in-out bg-teal-600 hover:bg-teal-700 text-white text-center w-8 p-2 rounded shadow-md mr-4 w-auto uppercase mb-4">
-							Will
-						</button>
-						<button className="btn-menu-purchase-gifted transition duration-500 ease-in-out bg-teal-600 hover:bg-teal-700 text-white text-center w-8 p-2 rounded shadow-md mr-4 w-auto uppercase mb-4">
-							Wll Not
-						</button>
-						<span className="ml-4">be money gifted to this purchase.</span>
-					</div>
-					<div className="mb-4">
-						<div>
-							<span className="mr-4">There will be</span>
-							<button className="btn-menu-purchase-gifting transition duration-500 ease-in-out bg-teal-600 hover:bg-teal-700 text-white text-white text-center w-10 p-2 rounded shadow-md mr-4 uppercase">
-								1
-							</button>
-							<button className="btn-menu-purchase-gifting transition duration-500 ease-in-out bg-teal-600 hover:bg-teal-700 text-white text-center w-10 p-2 rounded shadow-md mr-4 uppercase">
-								2
-							</button>
-							<button className="btn-menu-purchase-gifting transition duration-500 ease-in-out bg-teal-600 hover:bg-teal-700 text-white text-center w-10 p-2 rounded shadow-md mr-4 uppercase">
-								3
-							</button>
-							<button className="btn-menu-purchase-gifting transition duration-500 ease-in-out bg-teal-600 hover:bg-teal-700 text-white text-center w-10 p-2 rounded shadow-md uppercase">
-								4
-							</button>
-							<span className="ml-4">people gifting to this purchase.</span>
-						</div>
-					</div>
-					<div>
-						<span className="mr-4">I</span>
-						<button className="btn-menu-purchase-buyer transition duration-500 ease-in-out bg-teal-600 hover:bg-teal-700 text-white text-center w-8 p-2 rounded shadow-md mr-4 w-auto uppercase mb-4">
-							Am
-						</button>
-						<button className="btn-menu-purchase-buyer transition duration-500 ease-in-out bg-teal-600 hover:bg-teal-700 text-white text-center w-8 p-2 rounded shadow-md mr-4 w-auto uppercase mb-4">
-							Am Not
-						</button>
-						<span className="ml-4">a first time buyer.</span>
-					</div>
-					<div>
-						<span className="mr-4">The property </span>
-						<button className="btn-menu-purchase-investment transition duration-500 ease-in-out bg-teal-600 hover:bg-teal-700 text-white text-center w-8 p-2 rounded shadow-md mr-4 w-auto uppercase mb-4">
-							Is
-						</button>
-						<button className="btn-menu-purchase-investment transition duration-500 ease-in-out bg-teal-600 hover:bg-teal-700 text-white text-center w-8 p-2 rounded shadow-md mr-4 w-auto uppercase mb-4">
-							Is Not
-						</button>
-						<span className="ml-4">a second investment property purchase.</span>
-					</div>
+				<div ref={purchaseComponent} className="hide">
+					<Purchase />
 				</div>
-				<div className="rounded bg-white p-8 shadow-xl">
-					<h1 className="mb-4 text-4xl">Your Sale</h1>
-					<div className="mb-4">
-						<p>The property is worth £</p>
-						<input type="text" name="property" className="w-full border-b-2 mt-4" />
-					</div>
-					<div>
-						<span className="mr-4">The property is a</span>
-						<button className="btn-menu-sale-property transition duration-500 ease-in-out bg-teal-600 hover:bg-teal-700 text-white text-center w-8 p-2 rounded shadow-md mr-4 w-auto uppercase mb-4">
-							Freehold
-						</button>
-						<button className="btn-menu-sale-property transition duration-500 ease-in-out bg-teal-600 hover:bg-teal-700 text-white text-center w-8 p-2 rounded shadow-md mr-4 w-auto uppercase mb-4">
-							Leasehold
-						</button>
-						<span className="ml-4">.</span>
-					</div>
-					<div>
-						<span className="mr-4">There</span>
-						<button className="btn-menu-sale-mortgage transition duration-500 ease-in-out bg-teal-600 hover:bg-teal-700 text-white text-center w-8 p-2 rounded shadow-md mr-4 w-auto uppercase mb-4">
-							Will
-						</button>
-						<button className="btn-menu-sale-mortgage transition duration-500 ease-in-out bg-teal-600 hover:bg-teal-700 text-white text-center w-8 p-2 rounded shadow-md mr-4 w-auto uppercase mb-4">
-							Wll Not
-						</button>
-						<span className="ml-4">be a mortgage on this property.</span>
-					</div>
-					<div>
-						<span className="mr-4">The property is located in</span>
-						<button className="btn-menu-sale-country transition duration-500 ease-in-out bg-teal-600 hover:bg-teal-700 text-white text-center w-8 p-2 rounded shadow-md mr-4 w-auto uppercase mb-4">
-							England
-						</button>
-						<button className="btn-menu-sale-country transition duration-500 ease-in-out bg-teal-600 hover:bg-teal-700 text-white text-center w-8 p-2 rounded shadow-md mr-4 w-auto uppercase mb-4">
-							Wales
-						</button>
-					</div>
+				<div ref={sellComponent} className="hide">
+					<Sale />
 				</div>
-				<div className="rounded bg-white p-8 shadow-xl">
-					<h1 className="mb-4 text-4xl">Your Remortage</h1>
-					<div className="mb-4">
-						<p>The property is worth £</p>
-						<input type="text" name="property" className="w-full border-b-2 mt-4" />
-					</div>
-					<div>
-						<span className="mr-4">The property is a</span>
-						<button className="btn-menu-remortgage-property transition duration-500 ease-in-out bg-teal-600 hover:bg-teal-700 text-white text-center w-8 p-2 rounded shadow-md mr-4 w-auto uppercase mb-4">
-							Freehold
-						</button>
-						<button className="btn-menu-remortgage-property transition duration-500 ease-in-out bg-teal-600 hover:bg-teal-700 text-white text-center w-8 p-2 rounded shadow-md mr-4 w-auto uppercase mb-4">
-							Leasehold
-						</button>
-						<span className="ml-4">.</span>
-					</div>
-					<div>
-						<span className="mr-4">There</span>
-						<button className="btn-menu-remortgage-mortgage transition duration-500 ease-in-out bg-teal-600 hover:bg-teal-700 text-white text-center w-8 p-2 rounded shadow-md mr-4 w-auto uppercase mb-4">
-							Is
-						</button>
-						<button className="btn-menu-remortgage-mortgage transition duration-500 ease-in-out bg-teal-600 hover:bg-teal-700 text-white text-center w-8 p-2 rounded shadow-md mr-4 w-auto uppercase mb-4">
-							Is Not
-						</button>
-						<span className="ml-4">an existing mortgage on this property.</span>
-					</div>
-					<div>
-						<span className="mr-4">There</span>
-						<button className="btn-menu-remortgage-transfer-ownership transition duration-500 ease-in-out bg-teal-600 hover:bg-teal-700 text-white text-center w-8 p-2 rounded shadow-md mr-4 w-auto uppercase mb-4">
-							Will
-						</button>
-						<button className="btn-menu-remortgage-transfer-ownership transition duration-500 ease-in-out bg-teal-600 hover:bg-teal-700 text-white text-center w-8 p-2 rounded shadow-md mr-4 w-auto uppercase mb-4">
-							Will Not
-						</button>
-						<span className="ml-4">be a transfer of ownership.</span>
-					</div>
-					<div>
-						<span className="mr-4">There</span>
-						<button className="btn-menu-remortgage-shared-ownership transition duration-500 ease-in-out bg-teal-600 hover:bg-teal-700 text-white text-center w-8 p-2 rounded shadow-md mr-4 w-auto uppercase mb-4">
-							Is
-						</button>
-						<button className="btn-menu-remortgage-shared-ownership transition duration-500 ease-in-out bg-teal-600 hover:bg-teal-700 text-white text-center w-8 p-2 rounded shadow-md mr-4 w-auto uppercase mb-4">
-							Is Not
-						</button>
-						<span className="ml-4">a shared ownership on this property.</span>
-					</div>
-					<div>
-						<span className="mr-4">The property is located in</span>
-						<button className="btn-menu-remortgage-country transition duration-500 ease-in-out bg-teal-600 hover:bg-teal-700 text-white text-center w-8 p-2 rounded shadow-md mr-4 w-auto uppercase mb-4">
-							England
-						</button>
-						<button className="btn-menu-remortgage-country transition duration-500 ease-in-out bg-teal-600 hover:bg-teal-700 text-white text-center w-8 p-2 rounded shadow-md mr-4 w-auto uppercase mb-4">
-							Wales
-						</button>
-					</div>
+				<div ref={purchaseAndSellComponent} className="hide">
+					<PurchaseAndSell />
 				</div>
+				<div ref={remortgageComponent} className="hide">
+					<Remortgage />
+				</div>
+
 				<div>
 					<button className="transition duration-500 ease-in-out bg-teal-600 hover:bg-teal-700 text-white text-center w-8 p-2 rounded shadow-md mr-4 w-auto uppercase">
 						Calculate Now
