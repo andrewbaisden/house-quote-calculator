@@ -4,16 +4,20 @@ import Sale from './components/Sale';
 import PurchaseAndSell from './components/PurchaseAndSell';
 import Remortgage from './components/Remortgage';
 import YourQuote from './components/YourQuote';
+import YourQuoteSell from './components/YourQuoteSell';
 
 function App() {
-	const [people, setPeople] = useState("");
+	// All property type state
+	const [people, setPeople] = useState('');
+
+	// Purchase Data State
 	const [propertyWorth, setPropertyWorth] = useState('');
-	const [propertyType, setPropertyType] = useState("");
-	const [mortgage, setMortgage] = useState("");
-	const [gifted, setGifted] = useState("");
-	const [gifting, setGifting] = useState("");
-	const [buyer, setBuyer] = useState("");
-	const [investment, setInvestment] = useState("");
+	const [propertyType, setPropertyType] = useState('');
+	const [mortgage, setMortgage] = useState('');
+	const [gifted, setGifted] = useState('');
+	const [gifting, setGifting] = useState('');
+	const [buyer, setBuyer] = useState('');
+	const [investment, setInvestment] = useState('');
 
 	const purchaseData = {
 		type: 'Purchase',
@@ -25,6 +29,21 @@ function App() {
 		gifting: gifting,
 		buyer: buyer,
 		investment: investment
+	};
+
+	// Sell Data State
+	const [propertyWorthSell, setPropertyWorthSell] = useState('');
+	const [propertyTypeSell, setPropertyTypeSell] = useState('');
+	const [mortgageSell, setMortgageSell] = useState('');
+	const [locationSell, setLocationSell] = useState('');
+
+	const sellData = {
+		type: 'Sell',
+		people: people,
+		propertyWorth: propertyWorthSell,
+		propertyType: propertyTypeSell,
+		mortgage: mortgageSell,
+		location: locationSell
 	};
 
 	useEffect(() => {
@@ -51,7 +70,8 @@ function App() {
 		btnMenu('.btn-menu-remortgage-country');
 
 		console.log('Purchase Data', purchaseData);
-	}, [people, propertyWorth, propertyType, mortgage, gifting, gifting, buyer, investment, purchaseData]);
+		console.log('Sell Data', sellData);
+	}, [people, propertyWorth, propertyType, mortgage, gifting, buyer, investment, purchaseData, sellData]);
 	const numberOfPeopleHandler = value => {
 		setPeople(value);
 	};
@@ -85,8 +105,10 @@ function App() {
 	const purchaseAndSellComponent = useRef();
 	const remortgageComponent = useRef();
 	const yourQuoteComponent = useRef();
+	const yourQuoteComponentSell = useRef();
 	const generalComponent = useRef();
 	const calcQuoteComponent = useRef();
+	const calcQuoteComponentSell = useRef();
 	const newQuoteComponent = useRef();
 	const formError = useRef();
 
@@ -108,8 +130,7 @@ function App() {
 			forHover.classList.add('bg-teal-700');
 		}
 	};
-	
-	
+
 	const purchase = () => {
 		purchaseComponent.current.classList.remove('hide');
 		purchaseComponent.current.classList.add('show');
@@ -123,6 +144,10 @@ function App() {
 		purchaseComponent.current.classList.add('hide');
 		purchaseAndSellComponent.current.classList.add('hide');
 		remortgageComponent.current.classList.add('hide');
+		calcQuoteComponentSell.current.classList.add('show');
+		calcQuoteComponentSell.current.classList.remove('hide');
+		calcQuoteComponent.current.classList.add('hide');
+		calcQuoteComponent.current.classList.remove('show');
 	};
 	const purchaseAndSell = () => {
 		purchaseAndSellComponent.current.classList.remove('hide');
@@ -139,9 +164,17 @@ function App() {
 		purchaseAndSellComponent.current.classList.add('hide');
 	};
 	const calcQuote = () => {
-
-		if(people === "" || propertyWorth === "" || propertyType === "" || mortgage === "" || gifted === "" || gifting === "" || buyer === "" || investment === ""){
-			console.log("Please complete the form so that you can get your quote.");
+		if (
+			people === '' ||
+			propertyWorth === '' ||
+			propertyType === '' ||
+			mortgage === '' ||
+			gifted === '' ||
+			gifting === '' ||
+			buyer === '' ||
+			investment === ''
+		) {
+			console.log('Please complete the form so that you can get your quote.');
 			submitWarning();
 		} else {
 			generalComponent.current.classList.add('hide');
@@ -155,8 +188,32 @@ function App() {
 			newQuoteComponent.current.classList.remove('hide');
 			newQuoteComponent.current.classList.add('show');
 		}
-
-	
+	};
+	const calcQuoteSell = () => {
+		if (
+			people === '' ||
+			propertyWorthSell === '' ||
+			propertyTypeSell === '' ||
+			mortgageSell === '' ||
+			locationSell === ''
+		) {
+			console.log('Please complete the form so that you can get your quote.');
+			submitWarning();
+		} else {
+			generalComponent.current.classList.add('hide');
+			purchaseComponent.current.classList.add('hide');
+			sellComponent.current.classList.add('hide');
+			purchaseAndSellComponent.current.classList.add('hide');
+			remortgageComponent.current.classList.add('hide');
+			yourQuoteComponent.current.classList.add('hide');
+			yourQuoteComponent.current.classList.remove('show');
+			calcQuoteComponent.current.classList.add('hide');
+			calcQuoteComponentSell.current.classList.add('hide');
+			yourQuoteComponentSell.current.classList.remove('hide');
+			yourQuoteComponentSell.current.classList.add('show');
+			newQuoteComponent.current.classList.remove('hide');
+			newQuoteComponent.current.classList.add('show');
+		}
 	};
 	const newQuote = () => {
 		generalComponent.current.classList.remove('hide');
@@ -173,24 +230,24 @@ function App() {
 	};
 
 	const resetState = () => {
-		setPeople("")
-		setPropertyWorth("")
-		setPropertyType("")
-		setMortgage("")
-		setGifted("")
-		setGifting("")
-		setBuyer("")
-		setInvestment("")
-	}
+		setPeople('');
+		setPropertyWorth('');
+		setPropertyType('');
+		setMortgage('');
+		setGifted('');
+		setGifting('');
+		setBuyer('');
+		setInvestment('');
+	};
 	const submitWarning = () => {
-		formError.current.classList.remove("hide");
-		formError.current.classList.add("show");
+		formError.current.classList.remove('hide');
+		formError.current.classList.add('show');
 
 		setTimeout(() => {
-			formError.current.classList.add("hide");
-			formError.current.classList.remove("show");
-		}, 3000)
-	}
+			formError.current.classList.add('hide');
+			formError.current.classList.remove('show');
+		}, 3000);
+	};
 
 	return (
 		<Fragment>
@@ -208,25 +265,25 @@ function App() {
 						<div>
 							<button
 								className="btn-menu-purchase-people transition duration-500 ease-in-out bg-teal-600 hover:bg-teal-700 text-white text-white text-center w-10 p-2 rounded shadow-md mr-4 uppercase"
-								onClick={() => numberOfPeopleHandler("1")}
+								onClick={() => numberOfPeopleHandler('1')}
 							>
 								1
 							</button>
 							<button
 								className="btn-menu-purchase-people transition duration-500 ease-in-out bg-teal-600 hover:bg-teal-700 text-white text-center w-10 p-2 rounded shadow-md mr-4 uppercase"
-								onClick={() => numberOfPeopleHandler("2")}
+								onClick={() => numberOfPeopleHandler('2')}
 							>
 								2
 							</button>
 							<button
 								className="btn-menu-purchase-people transition duration-500 ease-in-out bg-teal-600 hover:bg-teal-700 text-white text-center w-10 p-2 rounded shadow-md mr-4 uppercase"
-								onClick={() => numberOfPeopleHandler("3")}
+								onClick={() => numberOfPeopleHandler('3')}
 							>
 								3
 							</button>
 							<button
 								className="btn-menu-purchase-people transition duration-500 ease-in-out bg-teal-600 hover:bg-teal-700 text-white text-center w-10 p-2 rounded shadow-md uppercase"
-								onClick={() => numberOfPeopleHandler("4")}
+								onClick={() => numberOfPeopleHandler('4')}
 							>
 								4
 							</button>
@@ -273,7 +330,13 @@ function App() {
 					/>
 				</div>
 				<div ref={sellComponent} className="hide">
-					<Sale />
+					<Sale
+						propertyWorthSell={propertyWorthSell}
+						setPropertyWorthSell={setPropertyWorthSell}
+						setPropertyTypeSell={setPropertyTypeSell}
+						setMortgageSell={setMortgageSell}
+						setLocationSell={setLocationSell}
+					/>
 				</div>
 				<div ref={purchaseAndSellComponent} className="hide">
 					<PurchaseAndSell />
@@ -282,16 +345,26 @@ function App() {
 					<Remortgage />
 				</div>
 				<div ref={yourQuoteComponent} className="hide">
-					<YourQuote 
-					type={purchaseData.type} 
-					people={purchaseData.people} 
-					propertyWorth={purchaseData.propertyWorth} 
-					propertyType={purchaseData.propertyType} 
-					mortgage={purchaseData.mortgage} 
-					gifted={purchaseData.gifted} 
-					gifting={purchaseData.gifting} 
-					buyer={purchaseData.buyer} 
-					investment={purchaseData.investment} 
+					<YourQuote
+						type={purchaseData.type}
+						people={purchaseData.people}
+						propertyWorth={purchaseData.propertyWorth}
+						propertyType={purchaseData.propertyType}
+						mortgage={purchaseData.mortgage}
+						gifted={purchaseData.gifted}
+						gifting={purchaseData.gifting}
+						buyer={purchaseData.buyer}
+						investment={purchaseData.investment}
+					/>
+				</div>
+				<div ref={yourQuoteComponentSell} className="hide">
+					<YourQuoteSell
+						type={sellData.type}
+						people={sellData.people}
+						propertyWorth={sellData.propertyWorth}
+						propertyType={sellData.propertyType}
+						mortgage={sellData.mortgage}
+						location={sellData.location}
 					/>
 				</div>
 
@@ -303,6 +376,14 @@ function App() {
 						<button
 							className="transition duration-500 ease-in-out bg-teal-600 hover:bg-teal-700 text-white text-center w-8 p-2 rounded shadow-md mr-4 w-auto uppercase"
 							onClick={calcQuote}
+						>
+							Calculate Now
+						</button>
+					</div>
+					<div ref={calcQuoteComponentSell} className="hide">
+						<button
+							className="transition duration-500 ease-in-out bg-teal-600 hover:bg-teal-700 text-white text-center w-8 p-2 rounded shadow-md mr-4 w-auto uppercase"
+							onClick={calcQuoteSell}
 						>
 							Calculate Now
 						</button>
