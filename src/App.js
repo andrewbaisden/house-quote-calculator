@@ -1,4 +1,4 @@
-import React, { Fragment, useEffect, useRef } from 'react';
+import React, { Fragment, useEffect, useRef, useState } from 'react';
 import Purchase from './components/Purchase';
 import Sale from './components/Sale';
 import PurchaseAndSell from './components/PurchaseAndSell';
@@ -6,6 +6,27 @@ import Remortgage from './components/Remortgage';
 import YourQuote from './components/YourQuote';
 
 function App() {
+	const [people, setPeople] = useState("");
+	const [propertyWorth, setPropertyWorth] = useState('');
+	const [propertyType, setPropertyType] = useState("");
+	const [mortgage, setMortgage] = useState("");
+	const [gifted, setGifted] = useState("");
+	const [gifting, setGifting] = useState("");
+	const [buyer, setBuyer] = useState("");
+	const [investment, setInvestment] = useState("");
+
+	const purchaseData = {
+		type: 'Purchase',
+		people: people,
+		propertyWorth: propertyWorth,
+		propertyType: propertyType,
+		mortgage: mortgage,
+		gifted: gifted,
+		gifting: gifting,
+		buyer: buyer,
+		investment: investment
+	};
+
 	useEffect(() => {
 		// Your Purchase menu buttons
 		btnMenu('.btn-menu-purchase-people');
@@ -28,7 +49,37 @@ function App() {
 		btnMenu('.btn-menu-remortgage-transfer-ownership');
 		btnMenu('.btn-menu-remortgage-shared-ownership');
 		btnMenu('.btn-menu-remortgage-country');
-	}, []);
+
+		console.log('Purchase Data', purchaseData);
+	}, [people, propertyWorth, propertyType, mortgage, gifting, gifting, buyer, investment, purchaseData]);
+	const numberOfPeopleHandler = value => {
+		setPeople(value);
+	};
+
+	const propertyTypeHandler = value => {
+		setPropertyType(value);
+	};
+
+	const propertyMortgageHandler = value => {
+		setMortgage(value);
+	};
+
+	const propertyGiftedHandler = value => {
+		setGifted(value);
+	};
+
+	const propertyGiftingHandler = value => {
+		setGifting(value);
+	};
+
+	const propertyBuyerHandler = value => {
+		setBuyer(value);
+	};
+
+	const propertyInvestmentHandler = value => {
+		setInvestment(value);
+	};
+
 
 	const purchaseComponent = useRef();
 	const sellComponent = useRef();
@@ -41,11 +92,11 @@ function App() {
 
 	const btnMenu = buttonClass => {
 		const btnMenu = Array.from(document.querySelectorAll(buttonClass));
-		console.log(btnMenu);
+		// console.log(btnMenu);
 
 		btnMenu.forEach(btns => {
 			btns.addEventListener('click', e => {
-				console.log(e.target);
+				// console.log(e.target);
 				handleClick(e.target);
 			});
 		});
@@ -57,6 +108,8 @@ function App() {
 			forHover.classList.add('bg-teal-700');
 		}
 	};
+	
+	
 	const purchase = () => {
 		purchaseComponent.current.classList.remove('hide');
 		purchaseComponent.current.classList.add('show');
@@ -91,7 +144,7 @@ function App() {
 		sellComponent.current.classList.add('hide');
 		purchaseAndSellComponent.current.classList.add('hide');
 		remortgageComponent.current.classList.add('hide');
-		yourQuoteComponent.current.classList.remove('hide')
+		yourQuoteComponent.current.classList.remove('hide');
 		yourQuoteComponent.current.classList.add('show');
 		calcQuoteComponent.current.classList.add('hide');
 		newQuoteComponent.current.classList.remove('hide');
@@ -106,7 +159,21 @@ function App() {
 		calcQuoteComponent.current.classList.add('show');
 		newQuoteComponent.current.classList.remove('show');
 		newQuoteComponent.current.classList.add('hide');
+
+		resetState();
 	};
+
+	const resetState = () => {
+		setPeople("")
+		setPropertyWorth("")
+		setPropertyType("")
+		setMortgage("")
+		setGifted("")
+		setGifting("")
+		setBuyer("")
+		setInvestment("")
+	}
+
 	return (
 		<Fragment>
 			<div className="container mx-auto px-4 mt-4 grid gap-4 grid-cols-1">
@@ -121,16 +188,28 @@ function App() {
 					<h1 className="mb-4 text-4xl">General</h1>
 					<div className="mb-4">
 						<div>
-							<button className="btn-menu-purchase-people transition duration-500 ease-in-out bg-teal-600 hover:bg-teal-700 text-white text-white text-center w-10 p-2 rounded shadow-md mr-4 uppercase">
+							<button
+								className="btn-menu-purchase-people transition duration-500 ease-in-out bg-teal-600 hover:bg-teal-700 text-white text-white text-center w-10 p-2 rounded shadow-md mr-4 uppercase"
+								onClick={() => numberOfPeopleHandler("1")}
+							>
 								1
 							</button>
-							<button className="btn-menu-purchase-people transition duration-500 ease-in-out bg-teal-600 hover:bg-teal-700 text-white text-center w-10 p-2 rounded shadow-md mr-4 uppercase">
+							<button
+								className="btn-menu-purchase-people transition duration-500 ease-in-out bg-teal-600 hover:bg-teal-700 text-white text-center w-10 p-2 rounded shadow-md mr-4 uppercase"
+								onClick={() => numberOfPeopleHandler("2")}
+							>
 								2
 							</button>
-							<button className="btn-menu-purchase-people transition duration-500 ease-in-out bg-teal-600 hover:bg-teal-700 text-white text-center w-10 p-2 rounded shadow-md mr-4 uppercase">
+							<button
+								className="btn-menu-purchase-people transition duration-500 ease-in-out bg-teal-600 hover:bg-teal-700 text-white text-center w-10 p-2 rounded shadow-md mr-4 uppercase"
+								onClick={() => numberOfPeopleHandler("3")}
+							>
 								3
 							</button>
-							<button className="btn-menu-purchase-people transition duration-500 ease-in-out bg-teal-600 hover:bg-teal-700 text-white text-center w-10 p-2 rounded shadow-md uppercase">
+							<button
+								className="btn-menu-purchase-people transition duration-500 ease-in-out bg-teal-600 hover:bg-teal-700 text-white text-center w-10 p-2 rounded shadow-md uppercase"
+								onClick={() => numberOfPeopleHandler("4")}
+							>
 								4
 							</button>
 							<span className="ml-4">people would like to</span>
@@ -164,7 +243,16 @@ function App() {
 					</div>
 				</div>
 				<div ref={purchaseComponent} className="hide">
-					<Purchase />
+					<Purchase
+						propertyWorth={propertyWorth}
+						setPropertyWorth={setPropertyWorth}
+						propertyTypeHandler={propertyTypeHandler}
+						propertyMortgageHandler={propertyMortgageHandler}
+						propertyGiftedHandler={propertyGiftedHandler}
+						propertyGiftingHandler={propertyGiftingHandler}
+						propertyBuyerHandler={propertyBuyerHandler}
+						propertyInvestmentHandler={propertyInvestmentHandler}
+					/>
 				</div>
 				<div ref={sellComponent} className="hide">
 					<Sale />
@@ -176,23 +264,38 @@ function App() {
 					<Remortgage />
 				</div>
 				<div ref={yourQuoteComponent} className="hide">
-					<YourQuote />
+					<YourQuote 
+					type={purchaseData.type} 
+					people={purchaseData.people} 
+					propertyWorth={purchaseData.propertyWorth} 
+					propertyType={purchaseData.propertyType} 
+					mortgage={purchaseData.mortgage} 
+					gifted={purchaseData.gifted} 
+					gifting={purchaseData.gifting} 
+					buyer={purchaseData.buyer} 
+					investment={purchaseData.investment} 
+					/>
 				</div>
 
 				<div>
 					<div ref={calcQuoteComponent}>
-					<button className="transition duration-500 ease-in-out bg-teal-600 hover:bg-teal-700 text-white text-center w-8 p-2 rounded shadow-md mr-4 w-auto uppercase" onClick={calcQuote} >
-						Calculate Now
-					</button>
+						<button
+							className="transition duration-500 ease-in-out bg-teal-600 hover:bg-teal-700 text-white text-center w-8 p-2 rounded shadow-md mr-4 w-auto uppercase"
+							onClick={calcQuote}
+						>
+							Calculate Now
+						</button>
 					</div>
-					
+
 					<div>
 						<div ref={newQuoteComponent} className="hide">
-						<button className="transition duration-500 ease-in-out bg-teal-600 hover:bg-teal-700 text-white text-center w-8 p-2 rounded shadow-md mr-4 w-auto uppercase" onClick={newQuote}>
-						New Quote
-					</button>
+							<button
+								className="transition duration-500 ease-in-out bg-teal-600 hover:bg-teal-700 text-white text-center w-8 p-2 rounded shadow-md mr-4 w-auto uppercase"
+								onClick={newQuote}
+							>
+								New Quote
+							</button>
 						</div>
-					
 					</div>
 				</div>
 				<div>
