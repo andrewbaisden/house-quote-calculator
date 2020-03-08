@@ -3,6 +3,7 @@ import Purchase from './components/Purchase';
 import Sale from './components/Sale';
 import PurchaseAndSell from './components/PurchaseAndSell';
 import Remortgage from './components/Remortgage';
+import YourQuote from './components/YourQuote';
 
 function App() {
 	useEffect(() => {
@@ -33,6 +34,10 @@ function App() {
 	const sellComponent = useRef();
 	const purchaseAndSellComponent = useRef();
 	const remortgageComponent = useRef();
+	const yourQuoteComponent = useRef();
+	const generalComponent = useRef();
+	const calcQuoteComponent = useRef();
+	const newQuoteComponent = useRef();
 
 	const btnMenu = buttonClass => {
 		const btnMenu = Array.from(document.querySelectorAll(buttonClass));
@@ -80,6 +85,28 @@ function App() {
 		sellComponent.current.classList.add('hide');
 		purchaseAndSellComponent.current.classList.add('hide');
 	};
+	const calcQuote = () => {
+		generalComponent.current.classList.add('hide');
+		purchaseComponent.current.classList.add('hide');
+		sellComponent.current.classList.add('hide');
+		purchaseAndSellComponent.current.classList.add('hide');
+		remortgageComponent.current.classList.add('hide');
+		yourQuoteComponent.current.classList.remove('hide')
+		yourQuoteComponent.current.classList.add('show');
+		calcQuoteComponent.current.classList.add('hide');
+		newQuoteComponent.current.classList.remove('hide');
+		newQuoteComponent.current.classList.add('show');
+	};
+	const newQuote = () => {
+		generalComponent.current.classList.remove('hide');
+		generalComponent.current.classList.add('show');
+		yourQuoteComponent.current.classList.remove('show');
+		yourQuoteComponent.current.classList.add('hide');
+		calcQuoteComponent.current.classList.remove('hide');
+		calcQuoteComponent.current.classList.add('show');
+		newQuoteComponent.current.classList.remove('show');
+		newQuoteComponent.current.classList.add('hide');
+	};
 	return (
 		<Fragment>
 			<div className="container mx-auto px-4 mt-4 grid gap-4 grid-cols-1">
@@ -90,7 +117,7 @@ function App() {
 						applicable to you.
 					</p>
 				</div>
-				<div className="rounded bg-white p-8 shadow-xl">
+				<div className="rounded bg-white p-8 shadow-xl" ref={generalComponent}>
 					<h1 className="mb-4 text-4xl">General</h1>
 					<div className="mb-4">
 						<div>
@@ -148,11 +175,25 @@ function App() {
 				<div ref={remortgageComponent} className="hide">
 					<Remortgage />
 				</div>
+				<div ref={yourQuoteComponent} className="hide">
+					<YourQuote />
+				</div>
 
 				<div>
-					<button className="transition duration-500 ease-in-out bg-teal-600 hover:bg-teal-700 text-white text-center w-8 p-2 rounded shadow-md mr-4 w-auto uppercase">
+					<div ref={calcQuoteComponent}>
+					<button className="transition duration-500 ease-in-out bg-teal-600 hover:bg-teal-700 text-white text-center w-8 p-2 rounded shadow-md mr-4 w-auto uppercase" onClick={calcQuote} >
 						Calculate Now
 					</button>
+					</div>
+					
+					<div>
+						<div ref={newQuoteComponent} className="hide">
+						<button className="transition duration-500 ease-in-out bg-teal-600 hover:bg-teal-700 text-white text-center w-8 p-2 rounded shadow-md mr-4 w-auto uppercase" onClick={newQuote}>
+						New Quote
+					</button>
+						</div>
+					
+					</div>
 				</div>
 				<div>
 					<p className="text-white mb-8">
