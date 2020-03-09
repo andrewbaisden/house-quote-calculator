@@ -21,15 +21,17 @@ const YourQuotePurchaseAndSell = ({
 				<h1 className="mb-4 text-4xl">Your Quote</h1>
 				<div>
 					<h2 className="text-2xl">{type}</h2>
+					<h3 className="text-xl mt-4 mb-4">Sell</h3>
 					<p>Number of People: {people}</p>
 					<p>Property Worth: £{propertyWorth}</p>
 					<p>Property Type: {propertyType}</p>
 					<p>Is there a Mortgage?: {mortgage}</p>
 					<p>Location: {location}</p>
-					<p>Property Worth Purchase: {propertyWorthPurchase}</p>
+					<h3 className="text-xl mt-4 mb-4">Purchase</h3>
+					<p>Property Worth Purchase: £{propertyWorthPurchase}</p>
 					<p>Property Type Purchase: {propertyTypePurchase}</p>
 					<p>Is there a Mortgage?: {mortgagePurchase}</p>
-					<p>Is is gifted?: {gifted}</p>
+					<p>Is it gifted?: {gifted}</p>
 					<p>How many are gifting?: {gifting}</p>
 					<p>First time buyer?: {buyer}</p>
 					<p>Second Investment?: {investment}</p>

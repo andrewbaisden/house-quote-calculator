@@ -63,7 +63,7 @@ function App() {
 	const [investmentPurchaseAndSellPurchase, setInvestmentPurchaseAndSellPurchase] = useState('');
 
 	const purchaseAndSellData = {
-		type: 'Sell',
+		type: 'Purchase And Sell',
 		people: people,
 		propertyWorth: propertyWorthPurchaseAndSell,
 		propertyType: propertyTypePurchaseAndSell,
@@ -120,10 +120,10 @@ function App() {
 		btnMenu('.btn-menu-remortgage-shared-ownership');
 		btnMenu('.btn-menu-remortgage-country');
 
-		console.log('Purchase Data', purchaseData);
-		console.log('Sell Data', sellData);
-		console.log('Purchase And Sell Data', purchaseAndSellData);
-		console.log('Remortgage Data', remortgageData);
+		// console.log('Purchase Data', purchaseData);
+		// console.log('Sell Data', sellData);
+		// console.log('Purchase And Sell Data', purchaseAndSellData);
+		// console.log('Remortgage Data', remortgageData);
 	}, [
 		people,
 		propertyWorth,
@@ -206,6 +206,8 @@ function App() {
 		sellComponent.current.classList.add('hide');
 		purchaseAndSellComponent.current.classList.add('hide');
 		remortgageComponent.current.classList.add('hide');
+		calcQuoteComponentPurchaseAndSell.current.classList.add('hide');
+		calcQuoteComponentPurchaseAndSell.current.classList.remove('show');
 	};
 	const sell = () => {
 		sellComponent.current.classList.remove('hide');
@@ -217,6 +219,10 @@ function App() {
 		calcQuoteComponentSell.current.classList.remove('hide');
 		calcQuoteComponent.current.classList.add('hide');
 		calcQuoteComponent.current.classList.remove('show');
+		calcQuoteComponentPurchaseAndSell.current.classList.add('hide');
+		calcQuoteComponentPurchaseAndSell.current.classList.remove('show');
+		calcQuoteComponentRemortgage.current.classList.remove('show');
+		calcQuoteComponentRemortgage.current.classList.add('hide');
 	};
 	const purchaseAndSell = () => {
 		purchaseAndSellComponent.current.classList.remove('hide');
@@ -224,6 +230,14 @@ function App() {
 		purchaseComponent.current.classList.add('hide');
 		sellComponent.current.classList.add('hide');
 		remortgageComponent.current.classList.add('hide');
+		calcQuoteComponent.current.classList.add('hide');
+		calcQuoteComponent.current.classList.remove('show');
+		calcQuoteComponentSell.current.classList.add('hide');
+		calcQuoteComponentSell.current.classList.remove('show');
+		calcQuoteComponentRemortgage.current.classList.add('hide');
+		calcQuoteComponentRemortgage.current.classList.remove('show');
+		calcQuoteComponentPurchaseAndSell.current.classList.add('show');
+		calcQuoteComponentPurchaseAndSell.current.classList.remove('hide');
 	};
 	const remortgage = () => {
 		remortgageComponent.current.classList.remove('hide');
@@ -237,6 +251,8 @@ function App() {
 		calcQuoteComponentSell.current.classList.remove('show');
 		calcQuoteComponentRemortgage.current.classList.remove('hide');
 		calcQuoteComponentRemortgage.current.classList.add('show');
+		calcQuoteComponentPurchaseAndSell.current.classList.add('hide');
+		calcQuoteComponentPurchaseAndSell.current.classList.remove('show');
 	};
 	const calcQuote = () => {
 		if (
@@ -291,30 +307,33 @@ function App() {
 		}
 	};
 	const calcQuotePurchaseAndSell = () => {
-		// if (
-		// 	people === '' ||
-		// 	propertyWorthSell === '' ||
-		// 	propertyTypeSell === '' ||
-		// 	mortgageSell === '' ||
-		// 	locationSell === ''
-		// ) {
-		// 	console.log('Please complete the form so that you can get your quote.');
-		// 	submitWarning();
-		// } else {
-		// 	generalComponent.current.classList.add('hide');
-		// 	purchaseComponent.current.classList.add('hide');
-		// 	sellComponent.current.classList.add('hide');
-		// 	purchaseAndSellComponent.current.classList.add('hide');
-		// 	remortgageComponent.current.classList.add('hide');
-		// 	yourQuoteComponent.current.classList.add('hide');
-		// 	yourQuoteComponent.current.classList.remove('show');
-		// 	calcQuoteComponent.current.classList.add('hide');
-		// 	calcQuoteComponentSell.current.classList.add('hide');
-		// 	yourQuoteComponentSell.current.classList.remove('hide');
-		// 	yourQuoteComponentSell.current.classList.add('show');
-		// 	newQuoteComponent.current.classList.remove('hide');
-		// 	newQuoteComponent.current.classList.add('show');
-		// }
+		if (
+			people === '' ||
+			propertyWorthPurchaseAndSell === '' ||
+			propertyTypePurchaseAndSell === '' ||
+			mortgagePurchaseAndSell === '' ||
+			locationPurchaseAndSell === '' ||
+			propertyWorthPurchaseAndSellPurchase === '' ||
+			propertyTypePurchaseAndSellPurchase === '' ||
+			mortgagePurchaseAndSellPurchase === '' ||
+			giftedPurchaseAndSellPurchase === '' ||
+			giftingPurchaseAndSellPurchase === '' ||
+			buyerPurchaseAndSellPurchase === '' ||
+			investmentPurchaseAndSellPurchase === ''
+		) {
+			console.log('Please complete the form so that you can get your quote.');
+			submitWarning();
+		} else {
+			generalComponent.current.classList.add('hide');
+			purchaseComponent.current.classList.add('hide');
+			sellComponent.current.classList.add('hide');
+			purchaseAndSellComponent.current.classList.add('hide');
+			calcQuoteComponentPurchaseAndSell.current.classList.add('hide');
+			newQuoteComponent.current.classList.add('show');
+			newQuoteComponent.current.classList.remove('hide');
+			yourQuoteComponentPurchaseAndSell.current.classList.add('show');
+			yourQuoteComponentPurchaseAndSell.current.classList.remove('hide');
+		}
 	};
 	const calcQuoteRemortgage = () => {
 		if (
@@ -466,7 +485,21 @@ function App() {
 					/>
 				</div>
 				<div ref={purchaseAndSellComponent} className="hide">
-					<PurchaseAndSell />
+					<PurchaseAndSell
+						propertyWorthPurchaseAndSell={propertyWorthPurchaseAndSell}
+						setPropertyWorthPurchaseAndSell={setPropertyWorthPurchaseAndSell}
+						setPropertyTypePurchaseAndSell={setPropertyTypePurchaseAndSell}
+						setMortgagePurchaseAndSell={setMortgagePurchaseAndSell}
+						setLocationPurchaseAndSell={setLocationPurchaseAndSell}
+						propertyWorthPurchaseAndSellPurchase={propertyWorthPurchaseAndSellPurchase}
+						setPropertyWorthPurchaseAndSellPurchase={setPropertyWorthPurchaseAndSellPurchase}
+						setPropertyTypePurchaseAndSellPurchase={setPropertyTypePurchaseAndSellPurchase}
+						setMortgagePurchaseAndSellPurchase={setMortgagePurchaseAndSellPurchase}
+						setGiftedPurchaseAndSellPurchase={setGiftedPurchaseAndSellPurchase}
+						setGiftingPurchaseAndSellPurchase={setGiftingPurchaseAndSellPurchase}
+						setBuyerPurchaseAndSellPurchase={setBuyerPurchaseAndSellPurchase}
+						setInvestmentPurchaseAndSellPurchase={setInvestmentPurchaseAndSellPurchase}
+					/>
 				</div>
 				<div ref={remortgageComponent} className="hide">
 					<Remortgage
@@ -557,7 +590,7 @@ function App() {
 							className="transition duration-500 ease-in-out bg-teal-600 hover:bg-teal-700 text-white text-center w-8 p-2 rounded shadow-md mr-4 w-auto uppercase"
 							onClick={calcQuotePurchaseAndSell}
 						>
-							Calculate Now purchase and sell
+							Calculate Now
 						</button>
 					</div>
 					<div ref={calcQuoteComponentRemortgage} className="hide">
