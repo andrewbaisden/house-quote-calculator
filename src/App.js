@@ -5,6 +5,8 @@ import PurchaseAndSell from './components/PurchaseAndSell';
 import Remortgage from './components/Remortgage';
 import YourQuote from './components/YourQuote';
 import YourQuoteSell from './components/YourQuoteSell';
+import YourQuotePurchaseAndSell from './components/YourQuotePurchaseAndSell';
+import YourQuoteRemortgage from './components/YourQuoteRemortgage';
 
 function App() {
 	// All property type state
@@ -46,6 +48,55 @@ function App() {
 		location: locationSell
 	};
 
+	// Purchase And Sell Data State
+	const [propertyWorthPurchaseAndSell, setPropertyWorthPurchaseAndSell] = useState('');
+	const [propertyTypePurchaseAndSell, setPropertyTypePurchaseAndSell] = useState('');
+	const [mortgagePurchaseAndSell, setMortgagePurchaseAndSell] = useState('');
+	const [locationPurchaseAndSell, setLocationPurchaseAndSell] = useState('');
+
+	const [propertyWorthPurchaseAndSellPurchase, setPropertyWorthPurchaseAndSellPurchase] = useState('');
+	const [propertyTypePurchaseAndSellPurchase, setPropertyTypePurchaseAndSellPurchase] = useState('');
+	const [mortgagePurchaseAndSellPurchase, setMortgagePurchaseAndSellPurchase] = useState('');
+	const [giftedPurchaseAndSellPurchase, setGiftedPurchaseAndSellPurchase] = useState('');
+	const [giftingPurchaseAndSellPurchase, setGiftingPurchaseAndSellPurchase] = useState('');
+	const [buyerPurchaseAndSellPurchase, setBuyerPurchaseAndSellPurchase] = useState('');
+	const [investmentPurchaseAndSellPurchase, setInvestmentPurchaseAndSellPurchase] = useState('');
+
+	const purchaseAndSellData = {
+		type: 'Sell',
+		people: people,
+		propertyWorth: propertyWorthPurchaseAndSell,
+		propertyType: propertyTypePurchaseAndSell,
+		mortgage: mortgagePurchaseAndSell,
+		location: locationPurchaseAndSell,
+		propertyWorthPurchase: propertyWorthPurchaseAndSellPurchase,
+		propertyTypePurchase: propertyTypePurchaseAndSellPurchase,
+		mortgagePurchase: mortgagePurchaseAndSellPurchase,
+		gifted: giftedPurchaseAndSellPurchase,
+		gifting: giftingPurchaseAndSellPurchase,
+		buyer: buyerPurchaseAndSellPurchase,
+		investment: investmentPurchaseAndSellPurchase
+	};
+
+	// Remortgage Data State
+	const [propertyWorthRemortgage, setPropertyWorthRemortgage] = useState('');
+	const [propertyTypeRemortgage, setPropertyTypeRemortgage] = useState('');
+	const [mortgageRemortgage, setMortgageRemortgage] = useState('');
+	const [ownershipRemortgage, setOwnershipRemortgage] = useState('');
+	const [sharedOwnershipRemortgage, setSharedOwnershipRemortgage] = useState('');
+	const [locationRemortgage, setLocationRemortgage] = useState('');
+
+	const remortgageData = {
+		type: 'Remortgage',
+		people: people,
+		propertyWorth: propertyWorthRemortgage,
+		propertyType: propertyTypeRemortgage,
+		mortgage: mortgageRemortgage,
+		ownership: ownershipRemortgage,
+		sharedOwnership: sharedOwnershipRemortgage,
+		location: locationRemortgage
+	};
+
 	useEffect(() => {
 		// Your Purchase menu buttons
 		btnMenu('.btn-menu-purchase-people');
@@ -71,7 +122,21 @@ function App() {
 
 		console.log('Purchase Data', purchaseData);
 		console.log('Sell Data', sellData);
-	}, [people, propertyWorth, propertyType, mortgage, gifting, buyer, investment, purchaseData, sellData]);
+		console.log('Purchase And Sell Data', purchaseAndSellData);
+		console.log('Remortgage Data', remortgageData);
+	}, [
+		people,
+		propertyWorth,
+		propertyType,
+		mortgage,
+		gifting,
+		buyer,
+		investment,
+		purchaseData,
+		sellData,
+		purchaseAndSellData,
+		remortgageData
+	]);
 	const numberOfPeopleHandler = value => {
 		setPeople(value);
 	};
@@ -106,9 +171,13 @@ function App() {
 	const remortgageComponent = useRef();
 	const yourQuoteComponent = useRef();
 	const yourQuoteComponentSell = useRef();
+	const yourQuoteComponentPurchaseAndSell = useRef();
+	const yourQuoteComponentRemortgage = useRef();
 	const generalComponent = useRef();
 	const calcQuoteComponent = useRef();
 	const calcQuoteComponentSell = useRef();
+	const calcQuoteComponentPurchaseAndSell = useRef();
+	const calcQuoteComponentRemortgage = useRef();
 	const newQuoteComponent = useRef();
 	const formError = useRef();
 
@@ -162,6 +231,12 @@ function App() {
 		purchaseComponent.current.classList.add('hide');
 		sellComponent.current.classList.add('hide');
 		purchaseAndSellComponent.current.classList.add('hide');
+		calcQuoteComponent.current.classList.add('hide');
+		calcQuoteComponent.current.classList.remove('show');
+		calcQuoteComponentSell.current.classList.add('hide');
+		calcQuoteComponentSell.current.classList.remove('show');
+		calcQuoteComponentRemortgage.current.classList.remove('hide');
+		calcQuoteComponentRemortgage.current.classList.add('show');
 	};
 	const calcQuote = () => {
 		if (
@@ -213,6 +288,58 @@ function App() {
 			yourQuoteComponentSell.current.classList.add('show');
 			newQuoteComponent.current.classList.remove('hide');
 			newQuoteComponent.current.classList.add('show');
+		}
+	};
+	const calcQuotePurchaseAndSell = () => {
+		// if (
+		// 	people === '' ||
+		// 	propertyWorthSell === '' ||
+		// 	propertyTypeSell === '' ||
+		// 	mortgageSell === '' ||
+		// 	locationSell === ''
+		// ) {
+		// 	console.log('Please complete the form so that you can get your quote.');
+		// 	submitWarning();
+		// } else {
+		// 	generalComponent.current.classList.add('hide');
+		// 	purchaseComponent.current.classList.add('hide');
+		// 	sellComponent.current.classList.add('hide');
+		// 	purchaseAndSellComponent.current.classList.add('hide');
+		// 	remortgageComponent.current.classList.add('hide');
+		// 	yourQuoteComponent.current.classList.add('hide');
+		// 	yourQuoteComponent.current.classList.remove('show');
+		// 	calcQuoteComponent.current.classList.add('hide');
+		// 	calcQuoteComponentSell.current.classList.add('hide');
+		// 	yourQuoteComponentSell.current.classList.remove('hide');
+		// 	yourQuoteComponentSell.current.classList.add('show');
+		// 	newQuoteComponent.current.classList.remove('hide');
+		// 	newQuoteComponent.current.classList.add('show');
+		// }
+	};
+	const calcQuoteRemortgage = () => {
+		if (
+			people === '' ||
+			propertyWorthRemortgage === '' ||
+			propertyTypeRemortgage === '' ||
+			mortgageRemortgage === '' ||
+			ownershipRemortgage === '' ||
+			sharedOwnershipRemortgage === '' ||
+			locationRemortgage === ''
+		) {
+			console.log('Please complete the form so that you can get your quote.');
+			submitWarning();
+		} else {
+			generalComponent.current.classList.add('hide');
+			purchaseComponent.current.classList.add('hide');
+			sellComponent.current.classList.add('hide');
+			purchaseAndSellComponent.current.classList.add('hide');
+			remortgageComponent.current.classList.add('hide');
+			newQuoteComponent.current.classList.remove('hide');
+			newQuoteComponent.current.classList.add('show');
+			calcQuoteComponentRemortgage.current.classList.remove('show');
+			calcQuoteComponentRemortgage.current.classList.add('hide');
+			yourQuoteComponentRemortgage.current.classList.add('show');
+			yourQuoteComponentRemortgage.current.classList.remove('hide');
 		}
 	};
 	const newQuote = () => {
@@ -342,7 +469,15 @@ function App() {
 					<PurchaseAndSell />
 				</div>
 				<div ref={remortgageComponent} className="hide">
-					<Remortgage />
+					<Remortgage
+						propertyWorthRemortgage={propertyWorthRemortgage}
+						setPropertyWorthRemortgage={setPropertyWorthRemortgage}
+						setPropertyTypeRemortgage={setPropertyTypeRemortgage}
+						setMortgageRemortgage={setMortgageRemortgage}
+						setOwnershipRemortgage={setOwnershipRemortgage}
+						setSharedOwnershipRemortgage={setSharedOwnershipRemortgage}
+						setLocationRemortgage={setLocationRemortgage}
+					/>
 				</div>
 				<div ref={yourQuoteComponent} className="hide">
 					<YourQuote
@@ -367,6 +502,35 @@ function App() {
 						location={sellData.location}
 					/>
 				</div>
+				<div ref={yourQuoteComponentPurchaseAndSell} className="hide">
+					<YourQuotePurchaseAndSell
+						type={purchaseAndSellData.type}
+						people={purchaseAndSellData.people}
+						propertyWorth={purchaseAndSellData.propertyWorth}
+						propertyType={purchaseAndSellData.propertyType}
+						mortgage={purchaseAndSellData.mortgage}
+						location={purchaseAndSellData.location}
+						propertyWorthPurchase={purchaseAndSellData.propertyWorthPurchase}
+						propertyTypePurchase={purchaseAndSellData.propertyTypePurchase}
+						mortgagePurchase={purchaseAndSellData.mortgagePurchase}
+						gifted={purchaseAndSellData.gifted}
+						gifting={purchaseAndSellData.gifting}
+						buyer={purchaseAndSellData.buyer}
+						investment={purchaseAndSellData.investment}
+					/>
+				</div>
+				<div ref={yourQuoteComponentRemortgage} className="hide">
+					<YourQuoteRemortgage
+						type={remortgageData.type}
+						people={remortgageData.people}
+						propertyWorth={remortgageData.propertyWorth}
+						propertyType={remortgageData.propertyType}
+						mortgage={remortgageData.mortgage}
+						sharedOwnership={remortgageData.sharedOwnership}
+						ownership={remortgageData.ownership}
+						location={remortgageData.location}
+					/>
+				</div>
 
 				<div>
 					<div className="bg-red-600 text-white p-4 text-center mb-4 hide" ref={formError}>
@@ -384,6 +548,22 @@ function App() {
 						<button
 							className="transition duration-500 ease-in-out bg-teal-600 hover:bg-teal-700 text-white text-center w-8 p-2 rounded shadow-md mr-4 w-auto uppercase"
 							onClick={calcQuoteSell}
+						>
+							Calculate Now
+						</button>
+					</div>
+					<div ref={calcQuoteComponentPurchaseAndSell} className="hide">
+						<button
+							className="transition duration-500 ease-in-out bg-teal-600 hover:bg-teal-700 text-white text-center w-8 p-2 rounded shadow-md mr-4 w-auto uppercase"
+							onClick={calcQuotePurchaseAndSell}
+						>
+							Calculate Now purchase and sell
+						</button>
+					</div>
+					<div ref={calcQuoteComponentRemortgage} className="hide">
+						<button
+							className="transition duration-500 ease-in-out bg-teal-600 hover:bg-teal-700 text-white text-center w-8 p-2 rounded shadow-md mr-4 w-auto uppercase"
+							onClick={calcQuoteRemortgage}
 						>
 							Calculate Now
 						</button>

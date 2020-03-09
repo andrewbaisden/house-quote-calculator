@@ -1,6 +1,15 @@
 import React, { Fragment } from 'react';
 
-const YourQuote = ({ type, people, propertyWorth, propertyType, mortgage, location }) => {
+const YourQuoteRemortgage = ({
+	type,
+	people,
+	propertyWorth,
+	propertyType,
+	mortgage,
+	ownership,
+	sharedOwnership,
+	location
+}) => {
 	return (
 		<Fragment>
 			<div className="rounded bg-white p-8 shadow-xl mb-4">
@@ -11,6 +20,8 @@ const YourQuote = ({ type, people, propertyWorth, propertyType, mortgage, locati
 					<p>Property Worth: £{propertyWorth}</p>
 					<p>Property Type: {propertyType}</p>
 					<p>Is there a Mortgage?: {mortgage}</p>
+					<p>Ownership: {ownership}</p>
+					<p>Shared Ownership: {sharedOwnership}</p>
 					<p>Location: {location}</p>
 				</div>
 			</div>
@@ -18,4 +29,4 @@ const YourQuote = ({ type, people, propertyWorth, propertyType, mortgage, locati
 	);
 };
 
-export default YourQuote;
+export default YourQuoteRemortgage;
